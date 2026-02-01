@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- ============================================================
+         PROJECT COORDINATES
+         These identify your project uniquely in Maven repositories
+         Similar to your old build.xml project name/version
+         ============================================================ -->
+    <groupId>com.example</groupId>
+    <artifactId>my-webapp</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    
+    <name>My Web Application</name>
+    <description>A sample Java web application for CI/CD learning</description>
+    
+    <!-- ============================================================
+         BUILD PROPERTIES
+         Compiler settings and encoding - no more javac task attributes
+         ============================================================ -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <junit.version>5.10.2</junit.version>
+    </properties>
+    
+    <!-- ============================================================
+         DEPENDENCIES
+         No more lib/ folder with manually downloaded JARs!
+         Maven downloads these automatically from Central Repository
+         ============================================================ -->
+    <dependencies>
+        
+        <!-- Servlet API - "provided" means the app server supplies it at runtime
+             Similar to how you'd put servlet.jar in your app server's lib -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- JSON processing - for our REST-like endpoint -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+        
+        <!-- ============================================================
+             TEST DEPENDENCIES
+             scope=test means these are only used during mvn test
+             Not packaged in the WAR
+             ============================================================ -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Mockito for mocking servlet request/response -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
+        </dependency>
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-junit-jupiter</artifactId>
+    <version>5.12.0</version>
+    <scope>test</scope>
+</dependency>        
+    </dependencies>
+    
+    <!-- ============================================================
+         BUILD CONFIGURATION
+         Plugins replace your Ant tasks
+         ============================================================ -->
+    <build>
+        <!-- Output WAR filename -->
+        <finalName>${project.artifactId}</finalName>
+        
+        <plugins>
+            
+            <!-- Compiler Plugin - replaces <javac> task -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.12.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            
+            <!-- Surefire Plugin - runs unit tests (replaces <junit> task) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <!-- Generate XML reports for CI tools to consume -->
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                </configuration>
+            </plugin>
+            
+            <!-- WAR Plugin - replaces <war> task -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <!-- Don't fail if web.xml is missing (for servlet 3.0+ annotation-based config) -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            
+        </plugins>
+    </build>
+    
+</project>
