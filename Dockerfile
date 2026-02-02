@@ -24,6 +24,9 @@ COPY pom.xml .
 
 # Download dependencies (cached unless pom.xml changes)
 RUN mvn dependency:go-offline -B
+EXPOSE 8088
+EXPOSE 8080
+
 
 # Copy source code
 COPY src ./src
@@ -45,13 +48,14 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy WAR from builder stage
 COPY --from=builder /app/target/my-webapp.war /usr/local/tomcat/webapps/my-webapp.war
+# Expose Tomcat port
+
 
 # Health check for container orchestration
 HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8080/my-webapp/health || exit 1
+    CMD curl -f http://localhost:8088/my-webapp/health || exit 1
 
-# Expose Tomcat port
-EXPOSE 8080
+
 
 # Start Tomcat
 CMD ["catalina.sh", "run"]
