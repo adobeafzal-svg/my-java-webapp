@@ -46,6 +46,15 @@ pipeline:
                   spec:
                     shell: Sh
                     command: mvn package
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: dockerhubconnector
+                    repo: afzalmemon7/harness_ci_docker_repo
+                    tags:
+                      - mywebapp-demo:v1
   properties:
     ci:
       codebase:
