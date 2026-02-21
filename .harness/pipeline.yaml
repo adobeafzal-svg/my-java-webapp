@@ -47,6 +47,13 @@ pipeline:
                     shell: Sh
                     command: mvn package
               - step:
+                  type: Run
+                  name: Run_4
+                  identifier: Run_4
+                  spec:
+                    shell: Sh
+                    command: docker build -t mywebapp-demo:v1 .
+              - step:
                   type: BuildAndPushDockerRegistry
                   name: BuildAndPushDockerRegistry_1
                   identifier: BuildAndPushDockerRegistry_1
