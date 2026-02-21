@@ -1,0 +1,14 @@
+inputSet:
+  name: mywebap-java-ci-is
+  identifier: mywebapjavaciis
+  orgIdentifier: default
+  projectIdentifier: mywebappnow
+  pipeline:
+    identifier: mywebappjavaci
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
