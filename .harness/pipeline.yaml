@@ -52,3 +52,4 @@ pipeline:
         connectorRef: githubconnectorformywebapp
         repoName: my-java-webapp
         build: <+input>
+        sparseCheckout: []
