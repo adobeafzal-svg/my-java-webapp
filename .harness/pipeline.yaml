@@ -52,7 +52,7 @@ pipeline:
                   identifier: Run_4
                   spec:
                     shell: Sh
-                    command: docker build -t mywebapp-demo:v1 .
+                    command: docker build -t mywebappdemo:v1 .
               - step:
                   type: BuildAndPushDockerRegistry
                   name: BuildAndPushDockerRegistry_1
@@ -61,7 +61,7 @@ pipeline:
                     connectorRef: dockerhubconnector
                     repo: afzalmemon7/harness_ci_docker_repo
                     tags:
-                      - mywebapp-demo:v1
+                      - mywebappdemo:v1
   properties:
     ci:
       codebase:
