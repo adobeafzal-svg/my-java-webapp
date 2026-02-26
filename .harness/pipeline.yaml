@@ -62,13 +62,6 @@ pipeline:
                     repo: afzalmemon7/harness-demo
                     tags:
                       - webappv1
-    - stage:
-        name: Servicenow Create Change
-        identifier: Servicenow_Create_Change
-        tags: {}
-        template:
-          templateRef: CreateServiceNowChange
-          versionLabel: "1.0"
   properties:
     ci:
       codebase:
